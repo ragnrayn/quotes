@@ -1,35 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import "./App.css";
+import quoteSign from "./assets/quote-svgrepo-com.svg";
+import quoteRequests from "./services/quotes";
+
+interface IQuote{
+  author: string,
+  category: string,
+  quote: string
+}
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [quote, setQuote] = useState<Array<IQuote>>();
+
+  useEffect(() => {
+    // quoteRequests.get().then(data =>{ setQuote(data); console.log(data)});
+  }, [])
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="quotes">
+        <div className="container">
+          <div className="quote-body">
+            <div className="quotes-header">Quotes Generator</div>
+            <div className="quotes-content">  
+              <div className="quotes-sign">
+                <img src={quoteSign} alt="" style={{ maxWidth: "250px" }} />
+              </div>
+              <div className="quotes-text">
+                <div className="quote-title">
+                  { (Array.isArray(quote) && quote.length > 0) ? quote[0].quote : "Quote" }
+                </div>
+                <div className="quote-author">
+                  { (Array.isArray(quote) && quote.length > 0) ? quote[0].author : "Quote" }
+                </div>
+              </div>
+            </div>
+            <div className="quotes-setting">Setting</div>
+          </div>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
