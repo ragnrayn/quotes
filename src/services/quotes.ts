@@ -1,8 +1,15 @@
 const quoteRequests = {
-    get: async () => {
+    get: async (category?: string) => {
         try {
-            const data = await fetch("https://api.api-ninjas.com/v1/quotes?category=happiness", { headers: { "X-Api-Key": import.meta.env.REACT_APP_API_KEY } });
-            const response = await data.json();
+            let data;
+            let response;
+            if(category){
+                data = await fetch(`https://api.api-ninjas.com/v1/quotes?category=${category}`, { headers: { "X-Api-Key": import.meta.env.VITE_APP_API_KEY } });
+            }else{
+                data = await fetch("https://api.api-ninjas.com/v1/quotes", { headers: { "X-Api-Key": import.meta.env.VITE_APP_API_KEY } });
+            }
+
+            response = await data.json();
 
             return response;
         } catch (error) {

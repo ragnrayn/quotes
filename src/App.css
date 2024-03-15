@@ -39,3 +39,11 @@
     text-align: center;
     font-size: 72px;
 }
+
+.quote-title{
+    font-weight: bold;
+}
+
+.quote-author{
+    margin-top: 30px;
+}
